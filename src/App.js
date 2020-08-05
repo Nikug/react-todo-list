@@ -1,24 +1,73 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { nanoid } from "nanoid";
+import './App.scss';
 
-function App() {
+import Todo from "./components/Todo";
+import AddTask from "./components/AddTask";
+
+const Tasks = [
+  { id: 1, key: 1, name: "Do work", completed: false, isEdited: false} ,
+  { id: 2, key: 2, name: "Watch Youtube", completed: false, isEdited: false },
+  { id: 3, key: 3, name: "Eat lunch", completed: false, isEdited: false },
+]
+
+function App(props) {
+
+  const [tasks, setTasks] = useState(Tasks);
+
+  function editTask(id, name, isEdited) {
+    const editedTasks = tasks.map(task => {
+      if(id === task.id) {
+        return{...task, name: name, isEdited: isEdited}
+      }
+      return(task);
+    });
+    setTasks(editedTasks);
+  }
+
+  function setEditing(id, value) {
+    const tasksBeingEdited = tasks.map(task => {
+      if(id === task.id) {
+        return{...task, isEdited: value}
+      }
+      return{...task, isEdited: false}
+    });
+    setTasks(tasksBeingEdited);
+  }
+
+  function removeTask(id) {
+    const tasksLeft = tasks.filter(task => task.id !== id);
+    setTasks(tasksLeft);
+  }
+
+  function addTask(name) {
+    const id = "todo-" + nanoid();
+    setTasks([...tasks, {
+      id: id,
+      key: id,
+      name: name,
+      completed: false
+    }]);
+  }
+
+  const taskList = tasks.map(task =>
+    <Todo
+      key={task.key}
+      task={task}
+      editTask={editTask}
+      removeTask={removeTask}
+      setEditing={setEditing}
+    />
+  );
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <AddTask addTask={addTask} />
+      </div>
+      <div>
+        {taskList}
+      </div>
     </div>
   );
 }
