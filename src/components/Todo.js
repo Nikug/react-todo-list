@@ -48,6 +48,7 @@ function Todo(props) {
       className={`todo ${isComplete ? "completed" : ""}`}
     >
       <input
+        className="checkbox"
         type="checkbox"
         onChange={handleSetComplete}
       />
@@ -115,9 +116,11 @@ function Todo(props) {
     });
 
   return(
-    <li>
-      {props.task.isEdited ? taskEdit : taskView}
-    </li>
+    <div className="well">
+      <li>
+        {props.task.isEdited ? taskEdit : taskView}
+      </li>
+    </div>
   );
 }
 

@@ -4,6 +4,7 @@ import './App.scss';
 
 import Todo from "./components/Todo";
 import AddTask from "./components/AddTask";
+import Footer from "./components/Footer";
 
 const Tasks = [
   { id: 1, key: 1, name: "Do work", completed: false, isEdited: false} ,
@@ -61,12 +62,17 @@ function App(props) {
   );
 
   return (
-    <div className="App">
-      <div>
-        <AddTask addTask={addTask} />
-      </div>
-      <div>
-        {taskList}
+    <div className="Container">
+      <div className="App">
+        <div className="Header">
+          <AddTask addTask={addTask} />
+        </div>
+        <div className="Body">
+          {taskList}
+        </div>
+        <div className="Footer">
+          <Footer />
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,36 @@
+@import "config";
+@import "components/todo";
+
+.Container {
+    background-color: $background-color;
+    height: 100vh;
+}
+
+.App {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    width: clamp(6em, 70%, 30em);
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $background-variant-color;
+    padding: 1em;
+}
+
+button {
+    margin-left: 0.5em;
+    text-transform: capitalize;
+    
+}
+
+.btn-primary {
+    background-color: $primary-color;
+}
+
+.btn-secondary {
+    background-color: $secondary-color;
+}
+
+.btn-danger {
+    background-color: $danger-color;
+}
